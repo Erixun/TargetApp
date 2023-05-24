@@ -1,0 +1,20 @@
+import { Button, StyleSheet, Text, View } from "react-native/types";
+
+const GameOverScreen = (props: any) => {
+    return (<View style={styles.screen}>
+      <Text>The Game is Over!</Text>
+      <Text>Number of rounds: {props.roundsNumber}</Text>
+      <Text>Number was: {props.userNumber}</Text>
+      <Button title="NEW GAME" onPress={props.onRestart}/>
+    </View>);
+};
+
+export default GameOverScreen;
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
