@@ -1,23 +1,26 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native/types";
+import { ReactNode } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const PrimaryButton = ({ children, ...props }: any) => {
-    return (<TouchableOpacity {...props}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{children}</Text>
-      </View>
-    </TouchableOpacity>);
+const PrimaryButton = ({ children }: PrimaryButtonProps) => {
+  return (
+    <View>
+      <Text style={styles.text}>{children}</Text>
+    </View>
+  );
 };
 
+export default PrimaryButton;
+
 const styles = StyleSheet.create({
-    button: {
-        // backgroundColor: Colors.primary,
-        paddingVertical: 12,
-        paddingHorizontal: 30,
-        borderRadius: 25,
-    },
-    buttonText: {
-        color: 'white',
-        fontFamily: 'open-sans',
-        fontSize: 18,
-    },
-});
+  text: {
+    textAlign: "center",
+    width: 100,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    color: "white"
+  }
+})
+
+type PrimaryButtonProps = {
+  children: ReactNode
+}
