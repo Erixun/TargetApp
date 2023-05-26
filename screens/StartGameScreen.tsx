@@ -1,11 +1,31 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
+import { useState } from 'react';
 
 const StartGameScreen = (props: any) => {
+  
+  const [number, setNumber] = useState('')
+  
+  const handleInput = (value:any) => {
+    console.log(value)
+    if(isNaN(value)) return
+    
+    setNumber(value)
+  }
+
   return (
-    <View style={styles.screen}>
-      <Text>The Game Screen! There should be input below</Text>
-      <TextInput style={styles.numberInput} keyboardType='number-pad' maxLength={2} placeholder='##' />
+    <View style={styles.inputContainer}>
+      <Text style={{color: "white"}}>The Game Screen! There should be input below</Text>
+      <TextInput
+        style={styles.numberInput}
+        keyboardType="number-pad"
+        maxLength={2}
+        placeholder="##"
+        autoCapitalize='none'
+        autoCorrect={false}
+        value={number}
+        onChangeText={handleInput}
+      />
       <View style={styles.buttonContainer}>
         <PrimaryButton>Reset</PrimaryButton>
         <PrimaryButton>Confirm</PrimaryButton>
@@ -17,42 +37,39 @@ const StartGameScreen = (props: any) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-  screen: {
+  inputContainer: {
     marginTop: 100,
-    width: "100%",
-    // flex: 1,
-    padding: 10,
+    marginHorizontal: 20,
+    // width: "100%",
+    padding: 20,
     alignItems: 'center',
-    // backgroundColor: "purple",
-    color: "white"
-  },
-  numberInput: {
-    // flex: 1,
-    minHeight: 50,
-    fontSize: 32,
-    fontWeight: "bold",
-    textAlign: "center",
-    // backgroundColor: "black",
-    paddingHorizontal: 10,
-    marginVertical: 8,
-    width: 60,
-    borderStyle: "solid",
-    borderBottomWidth: 5,
-    borderColor: "red",
-  },
-  buttonContainer: {
-    backgroundColor: "darkblue",
-    color: "white",
-    flexDirection: 'row',
-    marginTop: 30,
-    gap: 15,
+    backgroundColor: '#72063c',
     borderRadius: 5,
     //ANDROID ONLY
-    elevation: 5, 
+    elevation: 5,
     //IOS ONLY
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2},
-    shadowRadius: 6,
-    shadowOpacity: 0.3
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    shadowOpacity: 0.4,
+  },
+  numberInput: {
+    color: 'orange',
+    minHeight: 50,
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 10,
+    marginTop: 8,
+    width: 60,
+    borderStyle: 'solid',
+    borderBottomWidth: 3,
+    borderColor: 'orange',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    gap: 15,
+    borderRadius: 8,
   },
 });

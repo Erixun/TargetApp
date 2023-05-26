@@ -1,10 +1,21 @@
 import { ReactNode } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const PrimaryButton = ({ children }: PrimaryButtonProps) => {
   return (
-    <View>
-      <Text style={styles.text}>{children}</Text>
+    <View style={styles.btnOuterContainer}>
+      <Pressable
+        android_ripple={{ color: 'grey' }}
+        style={({ pressed }) => pressed ? [styles.btnInnerContainer, styles.btnPressed] : styles.btnInnerContainer}
+      >
+        <Text style={styles.text}>{children}</Text>
+      </Pressable>
     </View>
   );
 };
@@ -12,15 +23,27 @@ const PrimaryButton = ({ children }: PrimaryButtonProps) => {
 export default PrimaryButton;
 
 const styles = StyleSheet.create({
+  btnOuterContainer: {
+    backgroundColor: 'darkred',
+    borderRadius: 4,
+    elevation: 2,
+    overflow: 'hidden',
+    flex: 1
+  },
+  btnInnerContainer: {
+    // width: 100,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  btnPressed: {
+    opacity: 0.75
+  },
   text: {
-    textAlign: "center",
-    width: 100,
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    color: "white"
-  }
-})
+    textAlign: 'center',
+    color: 'white',
+  },
+});
 
 type PrimaryButtonProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
