@@ -1,34 +1,48 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
 
 const StartGameScreen = (props: any) => {
-  
-  const [number, setNumber] = useState('')
-  
-  const handleInput = (value:any) => {
-    console.log(value)
-    if(isNaN(value)) return
-    
-    setNumber(value)
-  }
+  const [number, setNumber] = useState('');
 
+  const handleInput = (value: string) => {
+    if (isValidInput(value)) setNumber(value);
+  };
+
+  const isValidInput = (value: string) => !isNaN(Number(value)) && Number(value) > 0;
+
+  const makeGuess = () => {
+    console.log('Guessing', number, '...');
+    if (isValidInput(number)) {
+      console.log("This is a valid guess")
+      return setNumber('');}
+
+    Alert.alert('Invalid Input!', 'Please enter a number between 1 and 99', [
+      { text: 'Okay', style: 'destructive', onPress: resetInput },
+    ]);
+  };
+
+  const resetInput = () => {
+    setNumber('');
+  };
   return (
     <View style={styles.inputContainer}>
-      <Text style={{color: "white"}}>The Game Screen! There should be input below</Text>
+      <Text style={{ color: 'white', fontSize: 16 }}>
+        Guess a number between 1 and 99
+      </Text>
       <TextInput
         style={styles.numberInput}
         keyboardType="number-pad"
         maxLength={2}
         placeholder="##"
-        autoCapitalize='none'
+        autoCapitalize="none"
         autoCorrect={false}
         value={number}
         onChangeText={handleInput}
       />
       <View style={styles.buttonContainer}>
-        <PrimaryButton>Reset</PrimaryButton>
-        <PrimaryButton>Confirm</PrimaryButton>
+        <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
+        <PrimaryButton onPress={makeGuess}>Confirm</PrimaryButton>
       </View>
     </View>
   );
@@ -40,10 +54,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 100,
     marginHorizontal: 20,
-    // width: "100%",
     padding: 20,
     alignItems: 'center',
-    backgroundColor: '#72063c',
+    backgroundColor: '#4a0427',
     borderRadius: 5,
     //ANDROID ONLY
     elevation: 5,
