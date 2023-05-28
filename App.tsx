@@ -1,8 +1,23 @@
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import StartGameScreen from './screens/StartGameScreen';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import GameScreen from './screens/GameScreen';
 
 export default function App() {
+  const [userNumber, setUserNumber] = useState<number | undefined>(undefined);
+
+  const handleGuess = (guess: number) => {
+    console.log('Guessing', guess, '...');
+    setUserNumber(guess);
+  };
+
+  const screen = userNumber ? (
+    <GameScreen userNumber={userNumber} />
+  ) : (
+    <StartGameScreen handleGuess={handleGuess} />
+  );
+
   return (
     <LinearGradient style={styles.rootScreen} colors={['orange', 'red']}>
       <ImageBackground
@@ -11,7 +26,7 @@ export default function App() {
         resizeMode="cover"
         imageStyle={{ opacity: 0.6 }}
       >
-        <StartGameScreen />
+        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );

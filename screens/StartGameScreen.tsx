@@ -2,20 +2,27 @@ import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
 
-const StartGameScreen = (props: any) => {
+const StartGameScreen = ({
+  handleGuess,
+}: {
+  handleGuess: (guess: number) => void;
+}) => {
   const [number, setNumber] = useState('');
 
   const handleInput = (value: string) => {
     if (isValidInput(value)) setNumber(value);
   };
 
-  const isValidInput = (value: string) => !isNaN(Number(value)) && Number(value) > 0;
+  const isValidInput = (value: string) =>
+    !isNaN(Number(value)) && Number(value) > 0;
 
   const makeGuess = () => {
     console.log('Guessing', number, '...');
     if (isValidInput(number)) {
-      console.log("This is a valid guess")
-      return setNumber('');}
+      console.log('This is a valid guess');
+      handleGuess(Number(number));
+      return setNumber('');
+    }
 
     Alert.alert('Invalid Input!', 'Please enter a number between 1 and 99', [
       { text: 'Okay', style: 'destructive', onPress: resetInput },
