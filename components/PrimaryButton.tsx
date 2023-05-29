@@ -5,6 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import Color from '../constant/Color';
 
 const PrimaryButton = ({ children, onPress }: PrimaryButtonProps) => {
   return (
@@ -28,7 +29,6 @@ export default PrimaryButton;
 
 const styles = StyleSheet.create({
   btnOuterContainer: {
-    backgroundColor: 'darkred',
     borderRadius: 4,
     elevation: 2,
     overflow: 'hidden',
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   btnInnerContainer: {
     // width: 100,
+    backgroundColor: Color.primary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
+import Color from '../constant/Color';
 
 const StartGameScreen = ({
   handleGuess,
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 20,
     alignItems: 'center',
-    backgroundColor: '#4a0427',
+    backgroundColor: Color.primary700,
     borderRadius: 5,
     //ANDROID ONLY
     elevation: 5,

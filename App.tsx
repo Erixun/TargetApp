@@ -3,6 +3,7 @@ import StartGameScreen from './screens/StartGameScreen';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
+import Color from './constant/Color';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState<number | undefined>(undefined);
@@ -19,12 +20,12 @@ export default function App() {
   );
 
   return (
-    <LinearGradient style={styles.rootScreen} colors={['orange', 'red']}>
+    <LinearGradient style={styles.rootScreen} colors={[Color.accent500, Color.primary700]} start={{x: 0.5, y: 0}} end={{x: 0.5, y: 1}}>
       <ImageBackground
         style={styles.rootScreen}
         source={require('./assets/dice.jpg')}
         resizeMode="cover"
-        imageStyle={{ opacity: 0.6 }}
+        imageStyle={{ opacity: 0.5 }}
       >
         <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
