@@ -11,6 +11,7 @@ import Color from '../constant/Color';
 import { useEffect, useState } from 'react';
 import PrimaryButton from '../components/PrimaryButton';
 import NumberContainer from '../components/game/NumberContainer';
+import { Ionicons } from '@expo/vector-icons';
 
 const GameScreen = ({ userNumber }: { userNumber: number }) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
@@ -56,10 +57,16 @@ const GameScreen = ({ userNumber }: { userNumber: number }) => {
       <NumberContainer>{currentGuess}</NumberContainer>
 
       <View>
-        <Text style={{ color: 'white' }}>Higher or lower?</Text>
+        <Text style={{ color: 'white', textAlign: 'center' }}>
+          Is it higher or lower?
+        </Text>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handleGuess('lower')}>-</PrimaryButton>
-          <PrimaryButton onPress={handleGuess('higher')}>+</PrimaryButton>
+          <PrimaryButton onPress={handleGuess('lower')}>
+            <Ionicons name="md-remove" size={24} color="white" />
+          </PrimaryButton>
+          <PrimaryButton onPress={handleGuess('higher')}>
+            <Ionicons name="md-add" size={24} color="white" />
+          </PrimaryButton>
         </View>
       </View>
       <View>
@@ -97,6 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     gap: 24,
+    marginVertical: 16,
     paddingHorizontal: 24,
   },
 });
