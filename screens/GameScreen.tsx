@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react';
 import PrimaryButton from '../components/PrimaryButton';
 import NumberContainer from '../components/game/NumberContainer';
 import { Ionicons } from '@expo/vector-icons';
+import Card from '../components/Card';
+import InstructionText from '../components/InstructionText';
 
 const GameScreen = ({ userNumber }: { userNumber: number }) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
@@ -56,10 +58,8 @@ const GameScreen = ({ userNumber }: { userNumber: number }) => {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
 
-      <View>
-        <Text style={{ color: 'white', textAlign: 'center' }}>
-          Is it higher or lower?
-        </Text>
+      <Card>
+        <InstructionText style={{textTransform: "capitalize", color: "white"}}>Higher or lower?</InstructionText>
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={handleGuess('lower')}>
             <Ionicons name="md-remove" size={24} color="white" />
@@ -68,7 +68,7 @@ const GameScreen = ({ userNumber }: { userNumber: number }) => {
             <Ionicons name="md-add" size={24} color="white" />
           </PrimaryButton>
         </View>
-      </View>
+      </Card>
       <View>
         <Text style={{ color: 'white' }}>Round #</Text>
       </View>
@@ -94,10 +94,15 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     marginHorizontal: 20,
     borderRadius: 10,
-    backgroundColor: Color.primary700,
-    color: 'white',
-    borderWidth: 2,
-    borderColor: Color.accent500,
+    // backgroundColor: Color.primary700,
+    // color: 'white',
+    // borderWidth: 2,
+    // borderColor: Color.accent500,
+  },
+  instructionText: {
+    color: Color.accent500,
+    fontSize: 18,
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

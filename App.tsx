@@ -20,7 +20,7 @@ export default function App() {
   );
 
   return (
-    <LinearGradient style={styles.rootScreen} colors={[Color.accent500, Color.primary700]} start={{x: 0.5, y: 0}} end={{x: 0.5, y: 1}}>
+    <LinearGradient style={styles.rootScreen} colors={[Color.primary700, Color.accent500]} start={{x: 0.5, y: 0}} end={{x: 0.5, y: 1}}>
       <ImageBackground
         style={styles.rootScreen}
         source={require('./assets/dice.jpg')}

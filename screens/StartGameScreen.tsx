@@ -2,6 +2,9 @@ import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
 import Color from '../constant/Color';
+import Title from '../components/Title';
+import Card from '../components/Card';
+import InstructionText from '../components/InstructionText';
 
 const StartGameScreen = ({
   handleGuess,
@@ -34,24 +37,27 @@ const StartGameScreen = ({
     setNumber('');
   };
   return (
-    <View style={styles.inputContainer}>
-      <Text style={{ color: 'white', fontSize: 16 }}>
-        Provide a number between 1 and 99
-      </Text>
-      <TextInput
-        style={styles.numberInput}
-        keyboardType="number-pad"
-        maxLength={2}
-        placeholder="##"
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={number}
-        onChangeText={handleInput}
-      />
-      <View style={styles.buttonContainer}>
-        <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
-        <PrimaryButton onPress={makeGuess}>Confirm</PrimaryButton>
-      </View>
+    <View style={styles.rootContainer}>
+      <Title>Guess My Number</Title>
+      {/* <View style={styles.inputContainer}> */}
+      <Card style={styles.inputContainer}>
+        <InstructionText>Provide a number between 1 and 99</InstructionText>
+        <TextInput
+          style={styles.numberInput}
+          keyboardType="number-pad"
+          maxLength={2}
+          placeholder="##"
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={number}
+          onChangeText={handleInput}
+        />
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
+          <PrimaryButton onPress={makeGuess}>Confirm</PrimaryButton>
+        </View>
+      </Card>
+      {/* </View> */}
     </View>
   );
 };
@@ -59,8 +65,20 @@ const StartGameScreen = ({
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  rootContainer: {
+    flex: 1,
     marginTop: 100,
+    // padding: 50,
+    alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  instructionText: {
+    color: Color.accent500,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    marginTop: 36,
     marginHorizontal: 20,
     padding: 20,
     alignItems: 'center',
