@@ -36,7 +36,7 @@ const StartGameScreen = ({
   return (
     <View style={styles.inputContainer}>
       <Text style={{ color: 'white', fontSize: 16 }}>
-        Guess a number between 1 and 99
+        Provide a number between 1 and 99
       </Text>
       <TextInput
         style={styles.numberInput}
