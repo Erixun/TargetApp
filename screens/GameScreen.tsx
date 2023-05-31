@@ -15,7 +15,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Card from '../components/Card';
 import InstructionText from '../components/InstructionText';
 
-const GameScreen = ({ userNumber }: { userNumber: number }) => {
+const GameScreen = ({
+  userNumber,
+  handleGameOver,
+}: {
+  userNumber: number;
+  handleGameOver: () => void;
+}) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
 
   const [currentGuess, setCurrentGuess] = useState<number>(initialGuess);
@@ -48,7 +54,10 @@ const GameScreen = ({ userNumber }: { userNumber: number }) => {
     else setMin(currentGuess);
 
     const nextGuess = generateRandomNumber(min, max, currentGuess);
-    if (nextGuess === userNumber) Alert.alert('You win!');
+    if (nextGuess === userNumber) {
+      Alert.alert('You win!');
+      handleGameOver();
+    }
 
     setCurrentGuess(nextGuess);
   };
@@ -59,7 +68,11 @@ const GameScreen = ({ userNumber }: { userNumber: number }) => {
       <NumberContainer>{currentGuess}</NumberContainer>
 
       <Card>
-        <InstructionText style={{textTransform: "capitalize", color: "white"}}>Higher or lower?</InstructionText>
+        <InstructionText
+          style={{ textTransform: 'capitalize', color: 'white' }}
+        >
+          Higher or lower?
+        </InstructionText>
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={handleGuess('lower')}>
             <Ionicons name="md-remove" size={24} color="white" />

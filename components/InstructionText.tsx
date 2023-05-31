@@ -10,6 +10,7 @@ export default InstructionText;
 
 const styles = StyleSheet.create({
   instructionText: { //overrides style prop
+    fontFamily: 'open-sans',
     fontSize: 18,
     color: Color.accent500,
     textAlign: 'center',
