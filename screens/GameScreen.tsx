@@ -5,6 +5,7 @@ import {
   StatusBar,
   Platform,
   Alert,
+  FlatList,
 } from 'react-native';
 import Title from '../components/Title';
 import Color from '../constant/Color';
@@ -14,12 +15,17 @@ import NumberContainer from '../components/game/NumberContainer';
 import { Ionicons } from '@expo/vector-icons';
 import Card from '../components/Card';
 import InstructionText from '../components/InstructionText';
+import { GuessRound } from '../App';
 
 const GameScreen = ({
   userNumber,
+  guessList,
+  handleGuess,
   handleGameOver,
 }: {
   userNumber: number;
+  guessList: GuessRound[];
+  handleGuess: (value: number) => void;
   handleGameOver: () => void;
 }) => {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
@@ -29,14 +35,14 @@ const GameScreen = ({
   const [min, setMin] = useState<number>(1);
   const [max, setMax] = useState<number>(101);
 
-  useEffect(() => {
-    if (currentGuess === userNumber) {
-      console.log('You win!');
-      Alert.alert('You win!');
-    }
-  }, [currentGuess, userNumber]);
+  // useEffect(() => {
+  //   if (currentGuess === userNumber) {
+  //     console.log('You win!');
+  //     Alert.alert('You win!');
+  //   }
+  // }, [currentGuess, userNumber]);
 
-  const handleGuess = (direction: 'lower' | 'higher') => () => {
+  const giveHint = (direction: 'lower' | 'higher') => () => {
     const [hasInputLower, hasInputHigher] =
       direction === 'lower' ? [true, false] : [false, true];
 
@@ -54,8 +60,9 @@ const GameScreen = ({
     else setMin(currentGuess);
 
     const nextGuess = generateRandomNumber(min, max, currentGuess);
+    handleGuess(nextGuess);
     if (nextGuess === userNumber) {
-      Alert.alert('You win!');
+      // Alert.alert('You win!');
       handleGameOver();
     }
 
@@ -74,16 +81,49 @@ const GameScreen = ({
           Higher or lower?
         </InstructionText>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handleGuess('lower')}>
+          <PrimaryButton onPress={giveHint('lower')}>
             <Ionicons name="md-remove" size={24} color="white" />
           </PrimaryButton>
-          <PrimaryButton onPress={handleGuess('higher')}>
+          <PrimaryButton onPress={giveHint('higher')}>
             <Ionicons name="md-add" size={24} color="white" />
           </PrimaryButton>
         </View>
       </Card>
-      <View>
-        <Text style={{ color: 'white' }}>Round #</Text>
+      <View style={{flex: 1, paddingVertical: 10}}>
+        {/* <Text style={{ color: 'white' }}>Round #</Text> */}
+        <FlatList
+          data={guessList}
+          //If item has a key property it gets added automatically
+          // keyExtractor={(item) => item.key.toString()}
+          renderItem={({ item }) => (
+            <View
+              style={{ 
+                
+                backgroundColor: Color.accent500,
+                borderRadius: 20,
+                flexDirection: 'row', justifyContent: 'space-between',
+                padding: 10,
+                marginVertical: 10,
+                elevation: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: 'black',
+                  fontFamily: 'open-sans-bold',
+                }}
+              >
+                {item.key+1}. Guess {item.value}
+              </Text>
+              {/* <Text style={{ color: 'white' }}>{item.key}</Text> */}
+            </View>
+          )}
+        />
+        {/* {guessList.map((guess, index) => (
+          <Text key={index} style={{ color: 'white' }}>
+            {guess}
+          </Text>
+        ))} */}
       </View>
     </View>
   );

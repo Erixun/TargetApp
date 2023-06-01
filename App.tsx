@@ -11,11 +11,22 @@ import GameOverScreen from './screens/GameOverScreen';
 
 SplashScreen.preventAutoHideAsync();
 
+export type GuessRound = {
+  value: number;
+  key: number;
+};
 export default function App() {
   const [userNumber, setUserNumber] = useState<number | undefined>(undefined);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [isReady, setIsReady] = useState(false);
-  
+  const [guessRound, setGuessRounds] = useState<number>(0);
+  const [roundsList, setRoundsList] = useState<number[]>([]);
+  const [guessList, setGuessList] = useState<GuessRound[]>([]);
+  const handleGuess = (value: number) => {
+    setGuessRounds((currentGuessRound) => currentGuessRound + 1);
+    setGuessList((currentGuessList) => [{value, key: guessRound}, ...currentGuessList]);
+  };
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -41,14 +52,20 @@ export default function App() {
 
     prepare();
   }, []);
-  const handleGuess = (guess: number) => {
-    console.log('Guessing', guess, '...');
-    setUserNumber(guess);
+  const handleInputNumber = (value: number) => {
+    setUserNumber(value);
   };
 
   const handleGameOver = () => {
-    setUserNumber(undefined);
+    // setUserNumber(undefined);
     setIsGameOver(true);
+  };
+
+  const onRestart = () => {
+    setUserNumber(undefined);
+    setIsGameOver(false);
+    setGuessRounds(0);
+    setGuessList([]);
   };
 
   // const [loaded] = useFonts({
@@ -65,11 +82,16 @@ export default function App() {
   // if (!fontsLoaded) return <AppLoading />;
 
   const screen = isGameOver ? (
-    <GameOverScreen />
+    <GameOverScreen guessRound={guessRound} userNumber={userNumber} onRestart={onRestart} />
   ) : userNumber ? (
-    <GameScreen userNumber={userNumber} handleGameOver={handleGameOver} />
+    <GameScreen
+      userNumber={userNumber}
+      handleGuess={handleGuess}
+      handleGameOver={handleGameOver}
+      guessList={guessList}
+    />
   ) : (
-    <StartGameScreen handleGuess={handleGuess} />
+    <StartGameScreen handleInputNumber={handleInputNumber} />
   );
 
   return (

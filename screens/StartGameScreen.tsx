@@ -7,9 +7,9 @@ import Card from '../components/Card';
 import InstructionText from '../components/InstructionText';
 
 const StartGameScreen = ({
-  handleGuess,
+  handleInputNumber,
 }: {
-  handleGuess: (guess: number) => void;
+  handleInputNumber: (guess: number) => void;
 }) => {
   const [number, setNumber] = useState('');
 
@@ -20,11 +20,10 @@ const StartGameScreen = ({
   const isValidInput = (value: string) =>
     !isNaN(Number(value)) && Number(value) > 0;
 
-  const makeGuess = () => {
-    console.log('Guessing', number, '...');
+  const submitNumber = () => {
     if (isValidInput(number)) {
-      console.log('This is a valid guess');
-      handleGuess(Number(number));
+      console.log('This is a valid number');
+      handleInputNumber(Number(number));
       return setNumber('');
     }
 
@@ -54,7 +53,7 @@ const StartGameScreen = ({
         />
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
-          <PrimaryButton onPress={makeGuess}>Confirm</PrimaryButton>
+          <PrimaryButton onPress={submitNumber}>Confirm</PrimaryButton>
         </View>
       </Card>
       {/* </View> */}

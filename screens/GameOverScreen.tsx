@@ -8,7 +8,15 @@ import { useEffect, useState } from 'react';
 const windowDimensions = Dimensions.get('window');
 const screenDimensions = Dimensions.get('window');
 
-const GameOverScreen = (props: any) => {
+const GameOverScreen = ({
+  guessRound,
+  userNumber,
+  onRestart,
+}: {
+  guessRound: number;
+  userNumber?: number;
+  onRestart: () => void;
+}) => {
   const [dimensions, setDimensions] = useState({
     window: windowDimensions,
     screen: screenDimensions,
@@ -47,11 +55,12 @@ const GameOverScreen = (props: any) => {
       </View>
       <Text style={styles.infoText}>
         Your phone required{' '}
-        <Text style={styles.highlight}>{props.roundsNumber || 33}</Text> rounds
-        to guess the correct number <Text style={styles.highlight}>66</Text>
+        <Text style={styles.highlight}>{guessRound || 33}</Text> rounds to guess
+        the correct number <Text style={styles.highlight}>{userNumber}</Text>
       </Text>
       {/* <Text>Number was: {props.userNumber}</Text> */}
-      {/* <Button title="NEW GAME" onPress={props.onRestart}/> */}
+
+      <Button title="NEW GAME" onPress={onRestart} />
     </View>
   );
 };
@@ -78,12 +87,18 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   infoText: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 20,
   },
-
   highlight: {
     color: Color.accent500,
+  },
+  button: {
+    backgroundColor: Color.primary500,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
   },
 });
