@@ -8,14 +8,15 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: 'open-sans-bold',
-    fontSize: 24,
-    // fontWeight: 'bold',
-    color: "white",//Color.accent500,
+    width: 300,
+    maxWidth: '80%',
     borderWidth: 2,
-    borderColor: "white",//Color.accent500,
-    textAlign: 'center',
+    borderColor: 'white',
     padding: 12,
-    backgroundColor: "rgba(84, 11, 47, 0.5)"//Color.primary700,
+    color: 'white',
+    backgroundColor: 'rgba(84, 11, 47, 0.5)', //Color.primary700,
+    fontFamily: 'open-sans-bold',
+    fontSize: 22,
+    textAlign: 'center',
   },
 });

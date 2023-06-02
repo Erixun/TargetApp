@@ -37,12 +37,15 @@ const GameOverScreen = ({
 
   useEffect(() => {
     const safeWidth = dimensions.window.width * 0.8;
+    const maxImageWidth = 300;
+    const imgWidth = Math.min(safeWidth, maxImageWidth);
     setDynamicStyles({
-      height: safeWidth,
-      width: safeWidth,
-      borderRadius: safeWidth / 2,
+      height: imgWidth,//maxImageWidth < safeWidth ? maxImageWidth : safeWidth,
+      width: imgWidth,//safeWidth,
+      borderRadius: imgWidth / 2,
     });
   }, [window]);
+
   return (
     <View style={styles.screen}>
       <Title>The Game is Over!</Title>
@@ -75,12 +78,11 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     margin: 40,
+    overflow: 'hidden',
+    // Solved with dynamicStyles:
     // height: windowDimensions.width - 40,
     // width: windowDimensions.width - 40,
     // borderRadius: (windowDimensions.width - 40) / 2, //should be half of width/height
-    overflow: 'hidden',
-    // borderWidth: 3,
-    // borderColor: Color.primary800
   },
   image: {
     height: '100%',

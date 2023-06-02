@@ -31,16 +31,8 @@ const GameScreen = ({
   const initialGuess = generateRandomNumber(1, 100, userNumber);
 
   const [currentGuess, setCurrentGuess] = useState<number>(initialGuess);
-
   const [min, setMin] = useState<number>(1);
   const [max, setMax] = useState<number>(101);
-
-  // useEffect(() => {
-  //   if (currentGuess === userNumber) {
-  //     console.log('You win!');
-  //     Alert.alert('You win!');
-  //   }
-  // }, [currentGuess, userNumber]);
 
   const giveHint = (direction: 'lower' | 'higher') => () => {
     const [hasInputLower, hasInputHigher] =
@@ -89,7 +81,7 @@ const GameScreen = ({
           </PrimaryButton>
         </View>
       </Card>
-      <View style={{flex: 1, paddingVertical: 10}}>
+      <View style={styles.roundsContainer}>
         {/* <Text style={{ color: 'white' }}>Round #</Text> */}
         <FlatList
           data={guessList}
@@ -97,13 +89,15 @@ const GameScreen = ({
           // keyExtractor={(item) => item.key.toString()}
           renderItem={({ item }) => (
             <View
-              style={{ 
-                
+              style={{
                 backgroundColor: Color.accent500,
                 borderRadius: 20,
-                flexDirection: 'row', justifyContent: 'space-between',
+                borderWidth: 2,
+                borderColor: Color.primary800,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 padding: 10,
-                marginVertical: 10,
+                marginTop: 20,
                 elevation: 5,
               }}
             >
@@ -113,7 +107,7 @@ const GameScreen = ({
                   fontFamily: 'open-sans-bold',
                 }}
               >
-                {item.key+1}. Guess {item.value}
+                {item.key + 1}. Guess {item.value}
               </Text>
               {/* <Text style={{ color: 'white' }}>{item.key}</Text> */}
             </View>
@@ -147,10 +141,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     marginHorizontal: 20,
     borderRadius: 10,
-    // backgroundColor: Color.primary700,
-    // color: 'white',
-    // borderWidth: 2,
-    // borderColor: Color.accent500,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   instructionText: {
     color: Color.accent500,
@@ -164,5 +156,10 @@ const styles = StyleSheet.create({
     gap: 24,
     marginVertical: 16,
     paddingHorizontal: 24,
+  },
+  roundsContainer: {
+    flex: 1,
+    width: '100%',
+    paddingBottom: 10,
   },
 });
