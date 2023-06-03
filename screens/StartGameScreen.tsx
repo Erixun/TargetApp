@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import { useWindowDimensions, View, Text, StyleSheet, TextInput, Alert, Dimensions } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
 import Color from '../constant/Color';
@@ -35,8 +35,15 @@ const StartGameScreen = ({
   const resetInput = () => {
     setNumber('');
   };
+
+  //This hook is used to get the dimensions of the screen
+  //and will cause a re-render when the screen is rotated
+  const {width, height} = useWindowDimensions();
+  
+  const marginTop = height < 380? 30: 100;
+  
   return (
-    <View style={styles.rootContainer}>
+    <View style={[styles.rootContainer, {marginTop: marginTop}]}>
       <Title>Guess My Number</Title>
       {/* <View style={styles.inputContainer}> */}
       <Card style={styles.inputContainer}>
@@ -63,10 +70,12 @@ const StartGameScreen = ({
 
 export default StartGameScreen;
 
+// const deviceHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    marginTop: 100,
+    // marginTop: deviceHeight < 380? 30: 100,
     // padding: 50,
     alignItems: 'center',
     // justifyContent: 'center',
