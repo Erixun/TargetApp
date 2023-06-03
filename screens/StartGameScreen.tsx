@@ -1,4 +1,15 @@
-import { useWindowDimensions, View, Text, StyleSheet, TextInput, Alert, Dimensions } from 'react-native';
+import {
+  useWindowDimensions,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 import { useState } from 'react';
 import Color from '../constant/Color';
@@ -38,33 +49,43 @@ const StartGameScreen = ({
 
   //This hook is used to get the dimensions of the screen
   //and will cause a re-render when the screen is rotated
-  const {width, height} = useWindowDimensions();
-  
-  const marginTop = height < 380? 30: 100;
-  
+  const { width, height } = useWindowDimensions();
+
+  const marginTop = height < 380 ? 60 : 100;
+
   return (
-    <View style={[styles.rootContainer, {marginTop: marginTop}]}>
-      <Title>Guess My Number</Title>
-      {/* <View style={styles.inputContainer}> */}
-      <Card style={styles.inputContainer}>
-        <InstructionText>Provide a number between 1 and 99</InstructionText>
-        <TextInput
-          style={styles.numberInput}
-          keyboardType="number-pad"
-          maxLength={2}
-          placeholder="##"
-          autoCapitalize="none"
-          autoCorrect={false}
-          value={number}
-          onChangeText={handleInput}
-        />
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
-          <PrimaryButton onPress={submitNumber}>Confirm</PrimaryButton>
+    // <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView
+        style={styles.screen}
+        behavior={Platform.OS === 'ios' ? 'position' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 100}
+      >
+        <View style={[styles.rootContainer]}>
+          <Title>Guess My Number</Title>
+          {/* <View style={styles.inputContainer}> */}
+          <Card style={styles.inputContainer}>
+            <InstructionText>Provide a number between 1 and 99</InstructionText>
+            <TextInput
+              style={styles.numberInput}
+              keyboardType="number-pad"
+              maxLength={2}
+              placeholder="##"
+              autoCapitalize="none"
+              autoCorrect={false}
+              value={number}
+              onChangeText={handleInput}
+            />
+            <View style={styles.buttonContainer}>
+              <PrimaryButton onPress={resetInput}>Reset</PrimaryButton>
+              <PrimaryButton onPress={submitNumber}>Confirm</PrimaryButton>
+            </View>
+          </Card>
+          {/* </View> */}
         </View>
-      </Card>
-      {/* </View> */}
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
+    // </View>
   );
 };
 
@@ -73,12 +94,15 @@ export default StartGameScreen;
 // const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     // marginTop: deviceHeight < 380? 30: 100,
     // padding: 50,
     alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
   instructionText: {
     color: Color.accent500,
