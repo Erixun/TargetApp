@@ -8,6 +8,7 @@ import * as Font from 'expo-font';
 // import AppLoading from 'expo-app-loading';
 import * as SplashScreen from 'expo-splash-screen';
 import GameOverScreen from './screens/GameOverScreen';
+import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -95,22 +96,25 @@ export default function App() {
   );
 
   return (
+    <>
+    <StatusBar style="light" />
     <LinearGradient
       style={styles.rootScreen}
       colors={[Color.primary700, Color.accent500]}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       onLayout={onLayoutRootView}
-    >
+      >
       <ImageBackground
         style={styles.rootScreen}
         source={require('./assets/dice.jpg')}
         resizeMode="cover"
         imageStyle={{ opacity: 0.5 }}
-      >
+        >
         <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
+        </>
   );
 }
 
